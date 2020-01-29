@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TryConnectionComponent } from './try-connection/try-connection.component';
 import { SqlService } from './sql.service';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { AnalyzeComponent } from './analyze/analyze.component';
 
 
 @NgModule({
@@ -17,10 +19,11 @@ import { SqlService } from './sql.service';
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: TryConnectionComponent },
+      {path:'analyze', component: AnalyzeComponent}
       
     ])
   ],
-  declarations: [ AppComponent, TryConnectionComponent ],
+  declarations: [ AppComponent, TryConnectionComponent, TopBarComponent, AnalyzeComponent ],
   bootstrap:    [ AppComponent ],
   providers: [SqlService]
 })

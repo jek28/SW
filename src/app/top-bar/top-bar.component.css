@@ -1,0 +1,14 @@
+a {
+  
+    background-color:rgba(0, 94, 131, 0.432); /* Green */
+    border: none;
+    color: rgb(0, 4, 65);
+    padding: 15px 100px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+    left: 100px;
+    }

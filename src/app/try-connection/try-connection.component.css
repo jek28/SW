@@ -1,0 +1,42 @@
+button {
+  position: absolute;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 50px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    
+    left: 100px;
+    }
+
+label{
+    border:none;
+    color: black;
+    box-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    
+    margin: 5px;
+    width: 70px;
+    
+}
+
+input{
+ 
+    color: black;
+    align-items: center;
+    box-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    padding: 15px 32px;
+    margin: 5px;
+}
+ 
+ 
+
