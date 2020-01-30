@@ -10,6 +10,7 @@ import { TryConnectionComponent } from './try-connection/try-connection.componen
 import { SqlService } from './sql.service';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { AnalyzeComponent } from './analyze/analyze.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -18,12 +19,13 @@ import { AnalyzeComponent } from './analyze/analyze.component';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: TryConnectionComponent },
+      { path: '', component: LoginComponent },
+      { path: 'tryconnection', component: TryConnectionComponent },
       {path:'analyze', component: AnalyzeComponent}
       
     ])
   ],
-  declarations: [ AppComponent, TryConnectionComponent, TopBarComponent, AnalyzeComponent ],
+  declarations: [ AppComponent, TryConnectionComponent, TopBarComponent, AnalyzeComponent, LoginComponent ],
   bootstrap:    [ AppComponent ],
   providers: [SqlService]
 })

@@ -23,19 +23,23 @@ export class TopBarComponent implements OnInit {
 
   ResetServer()
   {
+    if(confirm("Sicuro di voler cambiare connessione? ")) {
+    this.sqlservice.ClearServer().subscribe(res=> {  this.rixfromserver=res;
+      console.log('Status: ',this.rixfromserver.status)
+        this.router.navigateByUrl('/tryconnection');
+        }), error => alert(error);
+    }  
+  }
+
+  Exit()
+  {
     if(confirm("Sicuro di voler tornare alla pagina principale? ")) {
-    this.sqlservice.ClearServer().subscribe(res=> {  this.rixfromserver=res;this.update();}), error => alert(error);
-  }
-      
-  }
-
-  update(){
-        //console.warn('Risposta: ', this.rixfromsql);
-        console.log('Status: ',this.rixfromserver.status)
+    this.sqlservice.ClearServer().subscribe(res=> {  this.rixfromserver=res;
+      console.log('Status: ',this.rixfromserver.status)
         this.router.navigateByUrl('/');
-        window.alert(this.rixfromserver.message);
-        //this.router.navigateByUrl('/analyze');
-        
+        }), error => alert(error);
     }
+  }
 
+  
 }

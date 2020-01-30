@@ -41,4 +41,13 @@
 
   <button class="button" type="submit">Get and Analyze Data</button>
 
+  
+
 </form>
+
+<button class="button" (click)="resetClick()">Reset Graph</button>
+
+ <div *ngIf="chart">
+  <canvas id="canvas"> {{chart}} </canvas>
+</div> 
+

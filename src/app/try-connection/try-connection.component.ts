@@ -13,6 +13,7 @@ import { SqlService } from '../sql.service';
 export class TryConnectionComponent implements OnInit {
 
   rixfromsql: any ;
+  rixfromserver: any;
   checkoutForm;
   dataforsql= new TryJSON();
 
@@ -23,7 +24,8 @@ export class TryConnectionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.checkoutForm = this.formBuilder.group({
+
+       this.checkoutForm = this.formBuilder.group({
       host: '',
       user: '',
       pw: '',
@@ -31,6 +33,21 @@ export class TryConnectionComponent implements OnInit {
       table: '',
 
       });
+
+      this.sqlservice.GetSettings().subscribe(res=> {  
+      this.rixfromserver=res;
+      this.checkoutForm = this.formBuilder.group({
+      host: this.rixfromserver.connections[0].host,
+      user: this.rixfromserver.connections[0].user,
+      pw: this.rixfromserver.connections[0].pw,
+      database: this.rixfromserver.connections[0].database,
+      table: this.rixfromserver.connections[0].table,
+
+      });
+      
+      }), error => alert(error);
+
+
   }
 
   onSubmit(ConnectionData) {
@@ -52,7 +69,7 @@ export class TryConnectionComponent implements OnInit {
         console.log('Status: ',this.rixfromsql.status);
         if (this.rixfromsql.status!=200)
         {
-            this.checkoutForm.reset()
+            //this.checkoutForm.reset()
             window.alert(this.rixfromsql.message);
         }
         else
@@ -61,5 +78,7 @@ export class TryConnectionComponent implements OnInit {
           this.router.navigateByUrl('/analyze');
         }
     }
+
+    
 
 }

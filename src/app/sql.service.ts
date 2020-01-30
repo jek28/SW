@@ -9,6 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import {TryJSON} from './tryjson';
 import { AnalyzeJSON } from  './analyzejson'; 
+import {LoginJSON} from './loginjson';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -50,4 +51,11 @@ export class SqlService {
                   
   }
 
+  Login(jj: LoginJSON){
+    return this.http.post(this.SWUrl + '/login', jj, httpOptions).catch(SqlService._handleError)
+  }
+
+  GetSettings(){
+    return this.http.get(this.SWUrl + '/getsettings',  httpOptions).catch(SqlService._handleError)
+  }
 }

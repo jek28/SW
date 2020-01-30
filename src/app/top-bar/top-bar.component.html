@@ -1,7 +1,20 @@
-<a  (click)="ResetServer()">
+<a  >
   <h1>Settle Wave Analyzer</h1>
+
+
+  <div *ngIf="router.url != '/'  ">
+    <div *ngIf="router.url != '/tryconnection'  ">
+      <button class="button" type="submit" (click)="ResetServer()">Change Connections</button>
+    </div>
+  </div>
+
+
+  <div *ngIf="router.url != '/'">
+  <button class="button" type="submit" (click)="Exit()">Exit</button>
+  </div>
 </a>
  
 <!--
   <a [routerLink]="['/']" class="button fancy-button"><i class="material-icons">shopping_cart</i>Checkout</a>
 -->
+
