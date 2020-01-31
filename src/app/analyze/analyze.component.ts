@@ -22,7 +22,7 @@ export class AnalyzeComponent implements OnInit {
   dataforsw= new AnalyzeJSON();
   chart=[];
   graphexist=false;
-  
+  //unix = Math.round(+new Date()/1000);
 
 
  
@@ -59,17 +59,30 @@ export class AnalyzeComponent implements OnInit {
       
   }
 
-  controlStart(){
+  /**controlStart(){
     this.sqlservice.listen("test event").subscribe((data)=>
     {
       console.log(data);
     })
-  }
+  }*/
+
+  /** ControlClick(){
+    this.graphexist=true;
+    while (this.graphexist==true) {
+        if (this.unix+30> Math.round(+new Date()/1000)){
+            this.sqlservice.GetAndAnalyze(this.dataforsw).subscribe(res=> {  this.rixfromserver=res;this.update();}), error => alert(error);
+        }
+        
+    }
+  } **/
+
+
   resetClick()
   {
+    this.graphexist=false;
     console.log("function called");
     this.chart.destroy();
-    this.graphexist=false;
+    
 
   }
   onSubmit(ConnectionData) {
