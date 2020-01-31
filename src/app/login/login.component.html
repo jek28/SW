@@ -1,7 +1,7 @@
 
-<h3>Login</h3>
 
 
+<!--
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
 
   <div>
@@ -21,3 +21,15 @@
   <button class="button" type="submit">Enter</button>
 
 </form>
+-->
+
+<div class="login-page">
+  <div class="form">
+       
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+      <input type="text" placeholder="username" formControlName="user"/>
+      <input type="password" placeholder="password" formControlName="pw"/>
+      <button>login</button>
+    </form>
+  </div>
+</div>

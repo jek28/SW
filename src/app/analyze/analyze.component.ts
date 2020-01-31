@@ -85,6 +85,7 @@ export class AnalyzeComponent implements OnInit {
     
 
   }
+  
   onSubmit(ConnectionData) {
     
     this.dataforsw.time=ConnectionData.time;  

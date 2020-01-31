@@ -1,14 +1,72 @@
-a {
-  
-    background-color:rgba(0, 94, 131, 0.432); /* Green */
-    border: none;
-    color: rgb(0, 4, 65);
-    padding: 15px 100px;
-    margin: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
 
-    left: 100px;
-    }
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+a {
+  display: inline-block;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 20px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin: 5px;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+
+.button1 {
+  
+  position:absolute;
+  top: 25px;
+  right: 5px;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  /* background:#FFFFFF ;*/
+  width: 120px;
+  border: 5;
+  padding: 15px;
+  color:  #4CAF50;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.button2 {
+  
+  position:absolute;
+  top: 69px;
+  right: 5px;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  /* background:#FFFFFF ;*/
+  width: 120px;
+  border: 5;
+  padding: 15px;
+  color:  #4CAF50;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+
+
+
+
+
+
+
+
+

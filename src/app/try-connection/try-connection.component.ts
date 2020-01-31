@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 
 import { TryJSON } from  '../tryjson'; 
 import { SqlService } from '../sql.service';
+import {AlertDialogService} from '../alert-dialog/alert-dialog.service'
 
 @Component({
   selector: 'app-try-connection',
@@ -18,6 +19,7 @@ export class TryConnectionComponent implements OnInit {
   dataforsql= new TryJSON();
 
   constructor(
+    private alertDialogService: AlertDialogService,
     private router: Router,
     private sqlservice: SqlService,
     private formBuilder: FormBuilder,
@@ -75,6 +77,11 @@ export class TryConnectionComponent implements OnInit {
         else
         {
           window.alert(this.rixfromsql.message);
+
+          this.alertDialogService.confirm(this.rixfromsql.message);
+            //.then((confirmed) => console.log('User confirmed:', confirmed));
+
+
           this.router.navigateByUrl('/analyze');
         }
     }

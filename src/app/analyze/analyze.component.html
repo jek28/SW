@@ -1,55 +1,30 @@
 
-<h3>Try Connection</h3>
 
-<form [formGroup]="analyzeForm" (ngSubmit)="onSubmit(analyzeForm.value)">
-
-  <div>
-    <label for="time">
-      Time to import data
-    </label>
-    <input id="time" type="text" formControlName="time">
-  </div>
-
-  <div>
-    <label for="zona1">
-      Zona1 
-    </label>
-    <input id="zona1" type="text" formControlName="zona1">
-  </div>
-
-  <div>
-    <label for="zona2">
-      Zona2
-    </label>
-    <input id="zona2" type="text" formControlName="zona2">
-  </div>
-
-  <div>
-    <label for="ss">
-      Smoothness
-    </label>
-    <input id="ss" type="text" formControlName="ss">
-  </div>
-
-  <div>
-    <label for="dd">
-      Polynomial degree
-    </label>
-    <input id="dd" type="text" formControlName="dd">
-  </div>
-
-
-  <button class="button" type="submit">Get and Analyze Data</button>
-
-  
-
-</form>
-
-<button class="button" (click)="resetClick()">Reset Graph</button>
 
 <!-- <button class="button" (click)="ControlClick()">Start Control</button> -->
 
- <div *ngIf="chart">
-  <canvas id="canvas"> {{chart}} </canvas>
-</div> 
+ 
 
+<div class="analyze-page">
+  
+
+  <div class="form">
+    <h3>Data Analysis and Control</h3>
+    <form [formGroup]="analyzeForm" (ngSubmit)="onSubmit(analyzeForm.value)">
+      <input type="text" placeholder="Time to import data" formControlName="time"/>
+      <input type="text" placeholder="Zona 1" formControlName="zona1"/>
+      <input type="text" placeholder="Zona 2" formControlName="zona2"/>
+      <input type="text" placeholder="Smoothness" formControlName="ss"/>
+      <input type="text" placeholder="Interpolation degree" formControlName="dd"/>
+      <button class="button" type="submit">Get and analyze data</button>
+      
+    </form>
+    <button class="button" (click)="resetClick()">Reset Graph</button>
+
+    <div *ngIf="chart" class="graph">
+      <canvas id="canvas"> {{chart}} </canvas>
+    </div> 
+
+  </div>
+  
+</div>

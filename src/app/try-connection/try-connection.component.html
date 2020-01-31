@@ -1,46 +1,18 @@
 <link rel="stylesheet" href="/w3css/4/w3.css">
 
-<h3>Establish Connection</h3>
 
 
-<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
-
-  <div>
-    <label for="host">
-      Host
-    </label>
-    <input id="host" type="text" formControlName="host">
+<div class="connection-page">
+  <div class="form">
+       <h3>Establish Connection</h3>
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+      <input type="text" placeholder="Host" formControlName="host"/>
+      <input type="text" placeholder="User" formControlName="user"/>
+      <input type="password" placeholder="password" formControlName="pw"/>
+      <input type="text" placeholder="Database" formControlName="database"/>
+      <input type="text" placeholder="Table" formControlName="table"/>
+      <button class="button" type="submit">Try Connection</button>
+    </form>
   </div>
+</div>
 
-  <div>
-    <label for="user">
-      User
-    </label>
-    <input id="user" type="text" formControlName="user">
-  </div>
-
-  <div>
-    <label for="pw">
-      Pw
-    </label>
-    <input id="pw" type="text" formControlName="pw">
-  </div>
-
-  <div>
-    <label for="database">
-      Database
-    </label>
-    <input id="database" type="text" formControlName="database">
-  </div>
-
-  <div>
-    <label for="table">
-      Table
-    </label>
-    <input id="table" type="text" formControlName="table">
-  </div>
-
-
-  <button class="button" type="submit">Try Connection</button>
-
-</form>
