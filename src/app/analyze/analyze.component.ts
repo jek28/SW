@@ -3,6 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import {Router} from '@angular/router'
 import {Chart} from 'chart.js';
 
+
+
 import { AnalyzeJSON } from  '../analyzejson'; 
 import { SqlService } from '../sql.service';
 
@@ -20,7 +22,7 @@ export class AnalyzeComponent implements OnInit {
   dataforsw= new AnalyzeJSON();
   chart=[];
   graphexist=false;
-
+  
 
 
  
@@ -57,7 +59,12 @@ export class AnalyzeComponent implements OnInit {
       
   }
 
-
+  controlStart(){
+    this.sqlservice.listen("test event").subscribe((data)=>
+    {
+      console.log(data);
+    })
+  }
   resetClick()
   {
     console.log("function called");

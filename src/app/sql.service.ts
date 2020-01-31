@@ -4,6 +4,8 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/throw';
 
+import * as io from "socket.io-client";
+
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
@@ -19,13 +21,30 @@ const httpOptions = {
 export class SqlService {
 
   private SWUrl = 'http://localhost:5000';  // URL to REST API
+  socket: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.socket=io(this.SWUrl)
+  }
 
 
   private static _handleError(err: HttpErrorResponse | any) {
     return Observable.throw(err.message || 'Error: Unable to complete request.');
   }
+
+  listen(eventName:string){
+    return new Observable((subscriber)=> {
+      this.socket.on(eventName, (data)=>{
+        subscriber.next(data);
+      })
+    });
+  }
+
+  emit(eventName: string,data:any){
+    this.socket.emit(eventName,data);
+  }
+
+
 
   TryConnection(jj: TryJSON){
     
