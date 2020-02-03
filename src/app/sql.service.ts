@@ -62,6 +62,13 @@ export class SqlService {
     return this.http.post(this.SWUrl + '/getandanalyze', jj, httpOptions).catch(SqlService._handleError)
                   
   }
+  GetControlData(jj: AnalyzeJSON){
+    
+    //var a: any =//.map((res) => {return res.json()});
+    //console.log(a);
+    return this.http.post(this.SWUrl + '/getcontroldata', jj, httpOptions).catch(SqlService._handleError)
+                  
+  }
 
   ClearServer(){
     

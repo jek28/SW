@@ -27,7 +27,22 @@
 
   </div>
 
-  <button class="button" (click)="StartControl()">Start control</button>
-  <button class="button" (click)="StopControl()">Stop control</button>
+
+
+  <div class="form">
+    <h3>Control</h3>
+    <div class="flex">
+      <button class="button" (click)="StartControl(analyzeForm.value)">Start</button>
+      <button class="button" (click)="StopControl()">Stop</button>
+      
+    </div>
+    <div *ngIf="chartControl" class="graph">
+      <canvas id="canvas2"> {{chartControl}} </canvas>
+    </div> 
+  </div>
+
   
+
+  
+
 </div>

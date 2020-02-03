@@ -26,10 +26,12 @@ export class AnalyzeComponent implements OnInit {
   analyzeForm;
   dataforsw= new AnalyzeJSON();
   chart=[];
+  chartControl=[];
   graphexist=false;
-  //polledData: Observable<any>;
   mytimer: any;
-  //unix = Math.round(+new Date()/1000);
+  rixcontrol: any ;
+  graphcontrolexist=false;
+  
 
 
  
@@ -227,20 +229,170 @@ export class AnalyzeComponent implements OnInit {
     }
 
 
-    StartControl() {
-      console.log("contorllo partito")
-      /** this.polledData = timer(0, 1000).pipe(
-        concatMap(_ => this.sqlservice.GetAndAnalyze(this.dataforsw)),
-        map((response) => {  this.rixfromserver=response; this.update();}),
-      ); **/
 
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//                                         CONTROL
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+    StartControl(ConnectionData) {
+      console.log("contorllo partito")
+
+    this.dataforsw.time=ConnectionData.time;  
+    this.dataforsw.zona1=ConnectionData.zona1 ; 
+    this.dataforsw.zona2=ConnectionData.zona2 ;
+    this.dataforsw.smooth=ConnectionData.ss  ;
+    this.dataforsw.polydeg=ConnectionData.dd  ;
+
+    var deltatm=parseFloat(ConnectionData.time);
+
+    console.warn('Dati mandati: ',this.dataforsw );
      
-      this.mytimer=timer(0, 1000).subscribe(()=>this.sqlservice.GetAndAnalyze(this.dataforsw).subscribe(res=> {  this.rixfromserver=res;this.update();}));
+      this.mytimer=timer(0, deltatm).subscribe(()=>this.sqlservice.GetControlData(this.dataforsw).subscribe(res=> {  this.rixcontrol=res;this.updateControl();}));
+
+      const modalRef = this.modalService.open(MymodalComponent);
+      modalRef.componentInstance.my_modal_content = 'Controllore partito';
 
 
     }
     StopControl(){
+      console.log("control stop")
       this.mytimer.unsubscribe()
+
+      const modalRef = this.modalService.open(MymodalComponent);
+      modalRef.componentInstance.my_modal_content = 'Controllore fermato';
+      
+    }
+
+    updateControl(){
+        
+        console.log('Status: ',this.rixcontrol.status);
+        if (this.rixcontrol.status!=200)
+        {
+           const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = this.rixcontrol.message;
+         
+        }
+        else 
+        {
+          
+          
+
+            if (this.graphcontrolexist==false){
+              
+              
+              var date = new Date(this.rixcontrol.Datetime * 1000).toISOString() //.match(/(\d{2}:\d{2}:\d{2})/)
+
+              this.chartControl=new Chart('canvas2', {
+                type:'line',
+                data: {
+                labels: [date], //none
+                datasets: [    //none 
+                  {
+                  label: 'SW degree',
+                  data: [this.rixcontrol.SWDegree],//none
+                  borderColor: "#bae755",
+                  borderDash: [5, 5],
+                  backgroundColor: "#e755ba",
+                  pointBackgroundColor: "#55bae7",
+                  pointBorderColor: "#55bae7",
+                  pointHoverBackgroundColor: "#55bae7",
+                  pointHoverBorderColor: "#55bae7",
+                  fill: false
+                  },
+                  {
+                  label: 'SW point',
+                  data: [this.rixcontrol.SWPoint],//none
+                  borderColor: "#3D1107",
+                  borderDash: [5, 5],
+                  backgroundColor: "#682213",
+                  pointBackgroundColor: "#0000FF",
+                  pointBorderColor: "#665C0D",
+                  pointHoverBackgroundColor: "#55bae7",
+                  pointHoverBorderColor: "#55bae7",
+                  fill: false
+                  },
+                  {
+                  label: 'SW missing',
+                  data: [this.rixcontrol.missing],//none
+                  borderColor: "#3D1107",
+                  borderDash: [5, 5],
+                  backgroundColor: "#682213",
+                  pointBackgroundColor: "#0000FF",
+                  pointBorderColor: "#665C0D",
+                  pointHoverBackgroundColor: "#55bae7",
+                  pointHoverBorderColor: "#55bae7",
+                  fill: false
+                  },
+                  {
+                  label: 'element analyzed',
+                  data: [this.rixcontrol.dataline],//none
+                  borderColor: "#3D1107",
+                  borderDash: [5, 5],
+                  backgroundColor: "#682213",
+                  pointBackgroundColor: "#0000FF",
+                  pointBorderColor: "#665C0D",
+                  pointHoverBackgroundColor: "#55bae7",
+                  pointHoverBorderColor: "#55bae7",
+                  fill: false
+                  },
+                  
+                  ]
+                },
+                options: {
+                legend:{
+                display:true
+                },
+                scales:{
+                  xAxes:[{
+                  display:true
+                  }],
+                  yAxes:[{
+                  display:true
+                  }]
+                }
+                }
+                })  
+
+              this.graphcontrolexist=true
+              
+              }
+            else{
+                
+                
+                var date = new Date(this.rixcontrol.Datetime * 1000).toISOString() //.match(/(\d{2}:\d{2}:\d{2})/)
+
+                this.chartControl.data.labels.push(date);
+                this.chartControl.data.datasets[0].data.push([this.rixcontrol.SWDegree]);
+                this.chartControl.data.datasets[1].data.push([this.rixcontrol.SWPoint]);
+                this.chartControl.data.datasets[2].data.push([this.rixcontrol.missing]);
+                this.chartControl.data.datasets[3].data.push([this.rixcontrol.dataline]);
+                
+                
+
+                if (this.chartControl.data.labels.length>5)
+                {
+                  this.chartControl.data.labels.pop();
+                  this.chartControl.data.datasets[0].data.shift();
+                  this.chartControl.data.datasets[1].data.shift();
+                  this.chartControl.data.datasets[2].data.shift();
+                  this.chartControl.data.datasets[3].data.shift();
+                  
+                }
+                this.chartControl.update();
+                
+          }
+        
+
+          }
+
+    
+      
+   
     }
 
 
