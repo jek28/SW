@@ -80,7 +80,7 @@ export class AnalyzeComponent implements OnInit {
 
   }
   
-  onSubmit(ConnectionData) {
+  Submit(ConnectionData) {
     
     this.dataforsw.time=ConnectionData.time;  
     this.dataforsw.zona1=ConnectionData.zona1 ; 
@@ -91,7 +91,7 @@ export class AnalyzeComponent implements OnInit {
     console.warn('Dati mandati: ',this.dataforsw );
 
 
-    this.sqlservice.GetAndAnalyze(this.dataforsw).subscribe(res=> {  this.rixfromserver=res;this.update();}), error => alert(error);
+    this.sqlservice.GetAndAnalyze(this.dataforsw).take(1).subscribe(res=> {  this.rixfromserver=res;this.update();}), error => alert(error);
     
 
 
@@ -240,7 +240,7 @@ export class AnalyzeComponent implements OnInit {
 
 
     StartControl(ConnectionData) {
-      console.log("contorllo partito")
+      console.log("controllo partito")
 
     this.dataforsw.time=ConnectionData.time;  
     this.dataforsw.zona1=ConnectionData.zona1 ; 
@@ -252,16 +252,24 @@ export class AnalyzeComponent implements OnInit {
 
     console.warn('Dati mandati: ',this.dataforsw );
      
-      this.mytimer=timer(0, deltatm).subscribe(()=>this.sqlservice.GetControlData(this.dataforsw).subscribe(res=> {  this.rixcontrol=res;this.updateControl();}));
+     if (deltatm>5 && deltatm<100) 
+     {
+      this.mytimer=timer(0, deltatm*1000).subscribe(()=>this.sqlservice.GetControlData(this.dataforsw).first().subscribe(res=> {  this.rixcontrol=res;this.updateControl();}));
 
       const modalRef = this.modalService.open(MymodalComponent);
       modalRef.componentInstance.my_modal_content = 'Controllore partito';
+     }
+     else{
+       const modalRef = this.modalService.open(MymodalComponent);
+      modalRef.componentInstance.my_modal_content = 'tempo immesso non valido';
+     }
 
 
     }
     StopControl(){
       console.log("control stop")
-      this.mytimer.unsubscribe()
+      this.mytimer.unsubscribe();
+      this.mytimer=null;
 
       const modalRef = this.modalService.open(MymodalComponent);
       modalRef.componentInstance.my_modal_content = 'Controllore fermato';
@@ -374,7 +382,7 @@ export class AnalyzeComponent implements OnInit {
                 
                 
 
-                if (this.chartControl.data.labels.length>5)
+                if (this.chartControl.data.labels.length>10)
                 {
                   this.chartControl.data.labels.pop();
                   this.chartControl.data.datasets[0].data.shift();

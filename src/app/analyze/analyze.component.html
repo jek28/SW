@@ -10,13 +10,13 @@
 
   <div class="form">
     <h3>Data Analysis and Control</h3>
-    <form [formGroup]="analyzeForm" (ngSubmit)="onSubmit(analyzeForm.value)">
+    <form [formGroup]="analyzeForm" >
       <input type="text" placeholder="Time to import data" formControlName="time"/>
       <input type="text" placeholder="Zona 1" formControlName="zona1"/>
       <input type="text" placeholder="Zona 2" formControlName="zona2"/>
       <input type="text" placeholder="Smoothness" formControlName="ss"/>
       <input type="text" placeholder="Interpolation degree" formControlName="dd"/>
-      <button class="button" type="submit">Get and analyze data</button>
+      <button class="button" (click)="Submit(analyzeForm.value)">Get and analyze data</button>
       
     </form>
     <button class="button" (click)="resetClick()">Reset Graph</button>
