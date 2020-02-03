@@ -12,8 +12,7 @@ import { SqlService } from './sql.service';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { AnalyzeComponent } from './analyze/analyze.component';
 import { LoginComponent } from './login/login.component';
-import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
-import { AlertDialogService } from './alert-dialog/alert-dialog.service';
+
 
 
 @NgModule({
@@ -31,9 +30,9 @@ import { AlertDialogService } from './alert-dialog/alert-dialog.service';
       
     ])
   ],
-  declarations: [ AppComponent, TryConnectionComponent, TopBarComponent, AnalyzeComponent, LoginComponent, AlertDialogComponent ],
+  declarations: [ AppComponent, TryConnectionComponent, TopBarComponent, AnalyzeComponent, LoginComponent,],
   bootstrap:    [ AppComponent ],
-  providers: [SqlService, AlertDialogService],
-  entryComponents: [ AlertDialogComponent ],
+  providers: [SqlService],
+  entryComponents: [  ],
 })
 export class AppModule { }
