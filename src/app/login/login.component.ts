@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import {Router} from '@angular/router';
+import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 
 import { LoginJSON } from  '../loginjson'; 
 import { SqlService } from '../sql.service';
-
+import {MymodalComponent} from '../mymodal/mymodal.component'
 
 @Component({
   selector: 'app-login',
@@ -16,10 +17,14 @@ export class LoginComponent implements OnInit {
   rixfromsql: any ;
   loginForm;
   dataforlogin= new LoginJSON();
+  
 
   constructor(private router: Router,
     private sqlservice: SqlService,
-    private formBuilder: FormBuilder,) { }
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal,) {
+      
+     }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -43,14 +48,23 @@ export class LoginComponent implements OnInit {
         if (this.rixfromsql.status!=200)
         {
             this.loginForm.reset()
-            window.alert(this.rixfromsql.message);
+            //window.alert(this.rixfromsql.message);
+            const modalRef = this.modalService.open(MymodalComponent);
+            modalRef.componentInstance.my_modal_content = this.rixfromsql.message;
         }
         else
         {
-          window.alert(this.rixfromsql.message);
-          this.router.navigateByUrl('/tryconnection');
+          //window.alert(this.rixfromsql.message);
+
+          const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = this.rixfromsql.message;
+          modalRef.result.then((result) => {if (result) {            
+            this.router.navigateByUrl('/tryconnection');}}, (reason) => { });
+
+          
         }
     }
+    
 
 }
 

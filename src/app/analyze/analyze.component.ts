@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import {Router} from '@angular/router'
 import {Chart} from 'chart.js';
-
+import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AnalyzeJSON } from  '../analyzejson'; 
 import { SqlService } from '../sql.service';
+import {MymodalComponent} from '../mymodal/mymodal.component'
 
 
 
@@ -22,6 +23,7 @@ export class AnalyzeComponent implements OnInit {
   dataforsw= new AnalyzeJSON();
   chart=[];
   graphexist=false;
+  
   //unix = Math.round(+new Date()/1000);
 
 
@@ -31,6 +33,7 @@ export class AnalyzeComponent implements OnInit {
     private router: Router,
     private sqlservice: SqlService,
     private formBuilder: FormBuilder,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -58,23 +61,6 @@ export class AnalyzeComponent implements OnInit {
 
       
   }
-
-  /**controlStart(){
-    this.sqlservice.listen("test event").subscribe((data)=>
-    {
-      console.log(data);
-    })
-  }*/
-
-  /** ControlClick(){
-    this.graphexist=true;
-    while (this.graphexist==true) {
-        if (this.unix+30> Math.round(+new Date()/1000)){
-            this.sqlservice.GetAndAnalyze(this.dataforsw).subscribe(res=> {  this.rixfromserver=res;this.update();}), error => alert(error);
-        }
-        
-    }
-  } **/
 
 
   resetClick()
@@ -111,12 +97,15 @@ export class AnalyzeComponent implements OnInit {
         console.log('Status: ',this.rixfromserver.status);
         if (this.rixfromserver.status!=200)
         {
-            //this.analyzeForm.reset()
-            window.alert(this.rixfromserver.message);
+           const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = this.rixfromserver.message;
+         
         }
         else 
         {
-          window.alert('Grado e punto di settle wave calcolati ');
+          
+          const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = 'Grado e punto di settle wave calcolati ';
 
             if (this.graphexist==false){
               
@@ -195,21 +184,32 @@ export class AnalyzeComponent implements OnInit {
                 })  
 
               this.graphexist=true
+              
               }
             else{
-                //this.llabel.push(this.rixfromserver.Datetime)
-                //this.ddata.push(this.rixfromserver.SWDegree)
+                
+                
                 var date = new Date(this.rixfromserver.Datetime * 1000).toISOString() //.match(/(\d{2}:\d{2}:\d{2})/)
 
                 this.chart.data.labels.push(date);
-                /** this.chart.data.datasets.forEach((dataset) => {
-                dataset.data.push([this.rixfromserver.SWDegree]);
-                }); **/
                 this.chart.data.datasets[0].data.push([this.rixfromserver.SWDegree]);
                 this.chart.data.datasets[1].data.push([this.rixfromserver.SWPoint]);
                 this.chart.data.datasets[2].data.push([this.rixfromserver.missing]);
                 this.chart.data.datasets[3].data.push([this.rixfromserver.dataline]);
-                this.chart.update()
+                
+                
+
+                if (this.chart.data.labels.length>5)
+                {
+                  this.chart.data.labels.pop();
+                  this.chart.data.datasets[0].data.shift();
+                  this.chart.data.datasets[1].data.shift();
+                  this.chart.data.datasets[2].data.shift();
+                  this.chart.data.datasets[3].data.shift();
+                  
+                }
+                this.chart.update();
+                
           }
         
 

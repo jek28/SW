@@ -12,6 +12,7 @@ import { SqlService } from './sql.service';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { AnalyzeComponent } from './analyze/analyze.component';
 import { LoginComponent } from './login/login.component';
+import { MymodalComponent } from './mymodal/mymodal.component';
 
 
 
@@ -30,9 +31,9 @@ import { LoginComponent } from './login/login.component';
       
     ])
   ],
-  declarations: [ AppComponent, TryConnectionComponent, TopBarComponent, AnalyzeComponent, LoginComponent,],
+  declarations: [ AppComponent, TryConnectionComponent, TopBarComponent, AnalyzeComponent, LoginComponent, MymodalComponent,],
   bootstrap:    [ AppComponent ],
   providers: [SqlService],
-  entryComponents: [  ],
+  entryComponents: [ MymodalComponent],
 })
 export class AppModule { }

@@ -4,6 +4,7 @@ analyze-page {
   max-width: 1300px;
   padding: 8% 0 0;
   margin: auto;
+  overflow: scroll;
 }
 h3 {
   padding: 10;
@@ -32,7 +33,7 @@ font-family: "Roboto", sans-serif;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  max-height:10%;
+  max-height:auto;
 }
 .form input {
   font-family: "Roboto", sans-serif;
