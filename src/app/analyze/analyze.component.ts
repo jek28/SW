@@ -9,6 +9,7 @@ import { AnalyzeJSON } from  '../analyzejson';
 import { SqlService } from '../sql.service';
 import {MymodalComponent} from '../mymodal/mymodal.component'
 
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -220,4 +221,30 @@ export class AnalyzeComponent implements OnInit {
    
     }
 
+
+ timeLeft: number = 10;
+  interval;
+  subscribeTimer: any;
+
+  oberserableTimer() {
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+      console.log(val, '-');
+      this.subscribeTimer = this.timeLeft - val;
+    });
+  }
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.timeLeft = 10;
+      }
+    },1000)
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
 }
