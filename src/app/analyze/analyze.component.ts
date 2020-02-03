@@ -9,7 +9,10 @@ import { AnalyzeJSON } from  '../analyzejson';
 import { SqlService } from '../sql.service';
 import {MymodalComponent} from '../mymodal/mymodal.component'
 
-import { timer } from 'rxjs';
+
+import { timer } from 'rxjs/observable/timer';
+import { concatMap, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -24,7 +27,8 @@ export class AnalyzeComponent implements OnInit {
   dataforsw= new AnalyzeJSON();
   chart=[];
   graphexist=false;
-  
+  //polledData: Observable<any>;
+  mytimer: any;
   //unix = Math.round(+new Date()/1000);
 
 
@@ -35,6 +39,7 @@ export class AnalyzeComponent implements OnInit {
     private sqlservice: SqlService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    
   ) { }
 
   ngOnInit() {
@@ -222,29 +227,22 @@ export class AnalyzeComponent implements OnInit {
     }
 
 
- timeLeft: number = 10;
-  interval;
-  subscribeTimer: any;
+    StartControl() {
+      console.log("contorllo partito")
+      /** this.polledData = timer(0, 1000).pipe(
+        concatMap(_ => this.sqlservice.GetAndAnalyze(this.dataforsw)),
+        map((response) => {  this.rixfromserver=response; this.update();}),
+      ); **/
 
-  oberserableTimer() {
-    const source = timer(1000, 2000);
-    const abc = source.subscribe(val => {
-      console.log(val, '-');
-      this.subscribeTimer = this.timeLeft - val;
-    });
-  }
+     
+      this.mytimer=timer(0, 1000).subscribe(()=>this.sqlservice.GetAndAnalyze(this.dataforsw).subscribe(res=> {  this.rixfromserver=res;this.update();}));
 
-  startTimer() {
-    this.interval = setInterval(() => {
-      if(this.timeLeft > 0) {
-        this.timeLeft--;
-      } else {
-        this.timeLeft = 10;
-      }
-    },1000)
-  }
 
-  pauseTimer() {
-    clearInterval(this.interval);
-  }
+    }
+    StopControl(){
+      this.mytimer.unsubscribe()
+    }
+
+
+
 }
