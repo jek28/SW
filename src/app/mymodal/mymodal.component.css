@@ -1,0 +1,61 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.modal {
+ position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  max-width: 100%;
+  /*
+  height: 400px;
+  max-height: 100%;
+  */
+   z-index: 1000;
+   
+
+}
+
+
+
+
+
+.modal-header {
+  position: relative;
+  z-index: 1;
+  background: #4CAF50;
+  color:#FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: left;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.modal-header h4 {
+  display:inline-block;
+}
+
+.modal-header button {
+  display: inline-block;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.modal-header button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+
+
+
+
+

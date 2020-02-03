@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import {Router} from '@angular/router';
 
+import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+
 import { TryJSON } from  '../tryjson'; 
 import { SqlService } from '../sql.service';
+import {MymodalComponent} from '../mymodal/mymodal.component'
 
 
 @Component({
@@ -23,6 +26,7 @@ export class TryConnectionComponent implements OnInit {
     private router: Router,
     private sqlservice: SqlService,
     private formBuilder: FormBuilder,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -71,13 +75,16 @@ export class TryConnectionComponent implements OnInit {
         console.log('Status: ',this.rixfromsql.status);
         if (this.rixfromsql.status!=200)
         {
-            //this.checkoutForm.reset()
-            window.alert(this.rixfromsql.message);
+             const modalRef = this.modalService.open(MymodalComponent);
+              modalRef.componentInstance.my_modal_content = this.rixfromsql.message;
         }
         else
         {
-          window.alert(this.rixfromsql.message);
-          this.router.navigateByUrl('/analyze');
+          
+          const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = this.rixfromsql.message;
+          modalRef.result.then((result) => {if (result) {            
+            this.router.navigateByUrl('/analyze');}}, (reason) => { });
         }
     }
 
