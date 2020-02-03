@@ -91,7 +91,7 @@ export class AnalyzeComponent implements OnInit {
     console.warn('Dati mandati: ',this.dataforsw );
 
 
-    this.sqlservice.GetAndAnalyze(this.dataforsw).take(1).subscribe(res=> {  this.rixfromserver=res;this.update();}), error => alert(error);
+    this.sqlservice.GetAndAnalyze(this.dataforsw).subscribe(res=> {  this.rixfromserver=res;this.update();}), error => alert(error);
     
 
 
