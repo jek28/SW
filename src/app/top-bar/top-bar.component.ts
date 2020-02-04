@@ -41,6 +41,14 @@ export class TopBarComponent implements OnInit {
     }
   }
 
+
+ 
+
+  Navigate(ss)
+  {
+      this.router.navigateByUrl('/'+ss);
+  }
+
   
 
   

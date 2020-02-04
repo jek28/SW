@@ -13,6 +13,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { AnalyzeComponent } from './analyze/analyze.component';
 import { LoginComponent } from './login/login.component';
 import { MymodalComponent } from './mymodal/mymodal.component';
+import { ControlComponent } from './control/control.component';
 
 
 
@@ -27,11 +28,12 @@ import { MymodalComponent } from './mymodal/mymodal.component';
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'tryconnection', component: TryConnectionComponent },
-      {path:'analyze', component: AnalyzeComponent}
+      {path:'analyze', component: AnalyzeComponent},
+      {path:'control', component: ControlComponent}
       
     ])
   ],
-  declarations: [ AppComponent, TryConnectionComponent, TopBarComponent, AnalyzeComponent, LoginComponent, MymodalComponent,],
+  declarations: [ AppComponent, TryConnectionComponent, TopBarComponent, AnalyzeComponent, LoginComponent, MymodalComponent, ControlComponent,],
   bootstrap:    [ AppComponent ],
   providers: [SqlService],
   entryComponents: [ MymodalComponent],

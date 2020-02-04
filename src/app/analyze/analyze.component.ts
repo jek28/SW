@@ -25,6 +25,7 @@ export class AnalyzeComponent implements OnInit {
   rixfromserver: any ;
   analyzeForm;
   dataforsw= new AnalyzeJSON();
+  dataforcontrol= new AnalyzeJSON();
   chart=[];
   chartControl=[];
   graphexist=false;
@@ -237,23 +238,24 @@ export class AnalyzeComponent implements OnInit {
 
 
     ControlPresence=false;
+    
 
     StartControl(ConnectionData) {
       console.log("controllo partito")
 
-      this.dataforsw.time=ConnectionData.time;  
-      this.dataforsw.zona1=ConnectionData.zona1 ; 
-      this.dataforsw.zona2=ConnectionData.zona2 ;
-      this.dataforsw.smooth=ConnectionData.ss  ;
-      this.dataforsw.polydeg=ConnectionData.dd  ;
+      this.dataforcontrol.time=ConnectionData.time;  
+      this.dataforcontrol.zona1=ConnectionData.zona1 ; 
+      this.dataforcontrol.zona2=ConnectionData.zona2 ;
+      this.dataforcontrol.smooth=ConnectionData.ss  ;
+      this.dataforcontrol.polydeg=ConnectionData.dd  ;
 
       var deltatm=parseFloat(ConnectionData.time);
 
-      console.warn('Dati mandati: ',this.dataforsw );
+      console.warn('Dati mandati: ',this.dataforcontrol );
       if (this.ControlPresence==false){
           if (deltatm>5 && deltatm<100) 
           {
-            this.mytimer=timer(0, deltatm*1000).subscribe(()=>this.sqlservice.GetControlData(this.dataforsw).subscribe(res=> {  this.rixcontrol=res;this.updateControl();}), err=> this.ErrorAlert(err));
+            this.mytimer=timer(0, deltatm*1000).subscribe(()=>this.sqlservice.GetControlData(this.dataforcontrol).subscribe(res=> {  this.rixcontrol=res;this.updateControl();}), err=> this.ErrorAlert(err));
 
             const modalRef = this.modalService.open(MymodalComponent);
             modalRef.componentInstance.my_modal_content = 'Controllore partito';
