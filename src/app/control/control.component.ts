@@ -61,6 +61,7 @@ export class ControlComponent implements OnInit {
     graphcontrolexist=false;
     chartControl=[];
     dataforcontrol= new AnalyzeJSON();
+    running="Control is not running";
     
 
     StartControl(ConnectionData) {
@@ -83,6 +84,7 @@ export class ControlComponent implements OnInit {
             const modalRef = this.modalService.open(MymodalComponent);
             modalRef.componentInstance.my_modal_content = 'Controllore partito';
             this.ControlPresence=true
+            this.running="Control is running each " +ConnectionData.time + " seconds"
           }
           else{
             const modalRef = this.modalService.open(MymodalComponent);
@@ -106,6 +108,7 @@ export class ControlComponent implements OnInit {
         const modalRef = this.modalService.open(MymodalComponent);
         modalRef.componentInstance.my_modal_content = 'Controllore fermato';
         this.ControlPresence=false
+        this.running="Control is not running";
     }
     else {
       const modalRef = this.modalService.open(MymodalComponent);

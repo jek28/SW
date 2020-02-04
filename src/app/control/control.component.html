@@ -19,6 +19,8 @@
       <button class="button" (click)="StopControl()">Stop</button>
       
     </div>
+    <h3> {{running}}</h3>
+    
     <div *ngIf="chartControl" class="graph">
       <canvas id="canvas2"> {{chartControl}} </canvas>
     </div> 
