@@ -78,18 +78,19 @@ export class TryConnectionComponent implements OnInit {
         //console.warn('Risposta: ', this.rixfromsql);
         console.log('Messaggio: ',this.rixfromsql.message);
         console.log('Status: ',this.rixfromsql.status);
-        if (this.rixfromsql.status!=200)
-        {
-             const modalRef = this.modalService.open(MymodalComponent);
-              modalRef.componentInstance.my_modal_content = this.rixfromsql.message;
-        }
-        else
-        {
-          
+        if (this.rixfromsql.status==200)
+        { 
           const modalRef = this.modalService.open(MymodalComponent);
           modalRef.componentInstance.my_modal_content = this.rixfromsql.message;
           modalRef.result.then((result) => {if (result) {            
             this.router.navigateByUrl('/analyze');}}, (reason) => { });
+             
+        }
+        else
+        {
+          const modalRef = this.modalService.open(MymodalComponent);
+              modalRef.componentInstance.my_modal_content = this.rixfromsql.message;
+          
         }
     }
 

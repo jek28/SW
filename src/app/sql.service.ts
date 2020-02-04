@@ -13,6 +13,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import {TryJSON} from './tryjson';
 import { AnalyzeJSON } from  './analyzejson'; 
+import { ControlJSON } from  './controljson'; 
 import {LoginJSON} from './loginjson';
 
 const httpOptions = {
@@ -51,7 +52,7 @@ export class SqlService {
     return this.http.post(this.SWUrl + '/getandanalyze', jj, httpOptions).catch(this._handleError)
                   
   }
-  GetControlData(jj: AnalyzeJSON){
+  GetControlData(jj: ControlJSON){
     
     //var a: any =//.map((res) => {return res.json()});
     //console.log(a);

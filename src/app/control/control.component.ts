@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AnalyzeJSON } from  '../analyzejson'; 
-import { SqlService } from '../sql.service';
 import {MymodalComponent} from '../mymodal/mymodal.component'
 import {Router} from '@angular/router'
 import {Chart} from 'chart.js';
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder } from '@angular/forms';
-
 import { timer } from 'rxjs/observable/timer';
 import { Observable } from 'rxjs/Observable';
+
+import { ControlJSON } from  '../controljson'; 
+import { SqlService } from '../sql.service';
 
 
 @Component({
@@ -32,22 +32,30 @@ export class ControlComponent implements OnInit {
       zona2: '',
       ss: '',
       dd: '',
+      tableOUT: '',
+      databaseOUT:'',
 
       });
 
       this.sqlservice.GetSettings().subscribe(res=> {  
       this.rixcontrol=res;
       this.controlForm = this.formBuilder.group({
-      time: this.rixcontrol.analysis[0].time,
-      zona1: this.rixcontrol.analysis[0].zona1,
-      zona2: this.rixcontrol.analysis[0].zona2,
-      ss: this.rixcontrol.analysis[0].ss,
-      dd: this.rixcontrol.analysis[0].dd,
-
+      time: this.rixcontrol.control[0].time,
+      zona1: this.rixcontrol.control[0].zona1,
+      zona2: this.rixcontrol.control[0].zona2,
+      ss: this.rixcontrol.control[0].ss,
+      dd: this.rixcontrol.control[0].dd,
+      tableOUT: this.rixcontrol.control[0].tableOUT,
+      databaseOUT: this.rixcontrol.control[0].databaseOUT
       });
       
       }), error => alert(error);
   }
+
+  ErrorAlert(error){
+      const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = error ;
+    }
 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +68,7 @@ export class ControlComponent implements OnInit {
     rixcontrol: any ;
     graphcontrolexist=false;
     chartControl=[];
-    dataforcontrol= new AnalyzeJSON();
+    dataforcontrol= new ControlJSON();
     running="Control is not running";
     
 
@@ -72,6 +80,8 @@ export class ControlComponent implements OnInit {
       this.dataforcontrol.zona2=ConnectionData.zona2 ;
       this.dataforcontrol.smooth=ConnectionData.ss  ;
       this.dataforcontrol.polydeg=ConnectionData.dd  ;
+      this.dataforcontrol.tableOUT=ConnectionData.tableOUT  ;
+      this.dataforcontrol.databaseOUT=ConnectionData.databaseOUT  ;
 
       var deltatm=parseFloat(ConnectionData.time);
 
@@ -119,7 +129,7 @@ export class ControlComponent implements OnInit {
 
     updateControl(){
         
-        console.log('Status control: ',this.rixcontrol.status);
+        console.log('Status control: ',this.rixcontrol);
         if (this.rixcontrol.status!=200)
         {
            const modalRef = this.modalService.open(MymodalComponent);
@@ -212,7 +222,7 @@ export class ControlComponent implements OnInit {
               }
             else{
                 
-                
+                console.log('il grafico esiste allora lo aggiorno');
                 var date = new Date(this.rixcontrol.Datetime * 1000).toISOString() //.match(/(\d{2}:\d{2}:\d{2})/)
 
                 this.chartControl.data.labels.push(date);

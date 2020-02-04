@@ -3,6 +3,9 @@ import {Router} from '@angular/router';
 
 import { SqlService } from '../sql.service';
 
+import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import {MymodalComponent} from '../mymodal/mymodal.component'
+
 
 @Component({
   selector: 'app-top-bar',
@@ -16,6 +19,7 @@ export class TopBarComponent implements OnInit {
   constructor(
     private router: Router,
     private sqlservice: SqlService,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -27,7 +31,7 @@ export class TopBarComponent implements OnInit {
     this.sqlservice.ClearServer().subscribe(res=> {  this.rixfromserver=res;
       console.log('Status: ',this.rixfromserver.status)
         this.router.navigateByUrl('/tryconnection');
-        }), error => alert(error);
+        }, error => this.ErrorAlert(error));
     }  
   }
 
@@ -37,7 +41,7 @@ export class TopBarComponent implements OnInit {
     this.sqlservice.ClearServer().subscribe(res=> {  this.rixfromserver=res;
       console.log('Status: ',this.rixfromserver.status)
         this.router.navigateByUrl('/');
-        }), error => alert(error);
+        }, error => this.ErrorAlert(error));
     }
   }
 
@@ -48,6 +52,11 @@ export class TopBarComponent implements OnInit {
   {
       this.router.navigateByUrl('/'+ss);
   }
+
+  ErrorAlert(error){
+      const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = error ;
+    }
 
   
 
