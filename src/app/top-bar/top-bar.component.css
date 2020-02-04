@@ -10,67 +10,25 @@ a {
   background: #4CAF50;
   width: 100%;
   border: 0;
-  padding: 15px;
+  padding: 0px;
   color: #FFFFFF;
   font-size: 20px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
-  cursor: pointer;
+  
   
 }
 
 
-.button1 {
-  
-  position:absolute;
-  top: 25px;
-  right: 5px;
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  /* background:#FFFFFF ;*/
-  width: 120px;
-  border: 5;
-  padding: 15px;
-  color:  #4CAF50;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-.button2 {
-  
-  position:absolute;
-  top: 69px;
-  right: 5px;
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  /* background:#FFFFFF ;*/
-  width: 120px;
-  border: 5;
-  padding: 15px;
-  color:  #4CAF50;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-button:hover,.form button:active,.form button:focus {
-  background: #43A047;
-}
 
-.topAC{
-   background: rgb(66, 77, 66);
-}
 .button3 {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   
-  background: #4CAF50;
+  background: rgb(49, 114, 51);
   width: 50%;
   border: 0;
-  padding: 15px;
+  padding: 5px;
   color: #FFFFFF;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
@@ -82,10 +40,10 @@ button:hover,.form button:active,.form button:focus {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   
-  background: #4CAF50;
+  background: rgb(49, 114, 51);
   width: 50%;
   border: 0;
-  padding: 15px;
+  padding: 5px;
   color: #FFFFFF;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
@@ -94,7 +52,39 @@ button:hover,.form button:active,.form button:focus {
 }
 
 
+.exitclear {
+  
+}
 
+.button1 {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  background: #4CAF50;
+  width: 20%;
+  border: 0;
+  padding: 6px;
+  color: #FFFFFF;
+  font-size: 11px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  float: right;
+  
+}
 
-
+.button2 {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  
+  background: #4CAF50;
+  width: 10%;
+  border: 0;
+  padding: 6px;
+  color: #FFFFFF;
+  font-size: 11px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  float: right;
+}
 

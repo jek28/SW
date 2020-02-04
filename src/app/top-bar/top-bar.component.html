@@ -1,20 +1,24 @@
+
+
+
+
+
+
 <a  >
+  <div *ngIf="router.url != '/'  " class= "exitclear">
+  <button class="button2" type="submit" (click)="Exit()">Exit</button>
+  
+      <button class="button1" type="submit" (click)="ResetServer()" *ngIf="router.url != '/tryconnection'  ">Change Connections</button>
+      
+</div>
   <h1>Settle Wave Analyzer</h1>
 
-
-  <div *ngIf="router.url != '/'  ">
-    <div *ngIf="router.url != '/tryconnection'  ">
-      <button class="button2" type="submit" (click)="ResetServer()">Change Connections</button>
-    </div>
-  </div>
+</a>
 
 
-  <div *ngIf="router.url != '/'">
-  <button class="button1" type="submit" (click)="Exit()">Exit</button>
-  </div>
+
 
   
-</a>
 
 <div *ngIf= "router.url == '/analyze' || router.url == '/control'" class="topAC">
   <button class="button3" type="submit" (click)="Navigate('analyze')">Analysis</button>
