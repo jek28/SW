@@ -13,11 +13,13 @@
   <button class="button1" type="submit" (click)="Exit()">Exit</button>
   </div>
 
-  <div *ngIf= "router.url == '/analyze' || router.url == '/control'" >
-  <button class="button" type="submit" (click)="Navigate('analyze')">Analysis</button>
-  <button class="button" type="submit" (click)="Navigate('control')">Control</button>
-  </div>
+  
 </a>
+
+<div *ngIf= "router.url == '/analyze' || router.url == '/control'" class="topAC">
+  <button class="button3" type="submit" (click)="Navigate('analyze')">Analysis</button>
+  <button class="button4" type="submit" (click)="Navigate('control')">Control</button>
+</div>
  
 <!--
   <a [routerLink]="['/']" class="button fancy-button"><i class="material-icons">shopping_cart</i>Checkout</a>

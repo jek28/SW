@@ -1,0 +1,28 @@
+  <div class="control-page">
+
+
+    <div class="form">
+    <h3>Control</h3>
+
+    <form [formGroup]="controlForm" >
+      <input type="text" placeholder="Time to import data" formControlName="time"/>
+      <input type="text" placeholder="Zona 1" formControlName="zona1"/>
+      <input type="text" placeholder="Zona 2" formControlName="zona2"/>
+      <input type="text" placeholder="Smoothness" formControlName="ss"/>
+      <input type="text" placeholder="Interpolation degree" formControlName="dd"/>
+      
+    </form>
+
+
+    <div class="flex">
+      <button class="button" (click)="StartControl(controlForm.value)">Start</button>
+      <button class="button" (click)="StopControl()">Stop</button>
+      
+    </div>
+    <div *ngIf="chartControl" class="graph">
+      <canvas id="canvas2"> {{chartControl}} </canvas>
+    </div> 
+  </div>
+
+
+</div>

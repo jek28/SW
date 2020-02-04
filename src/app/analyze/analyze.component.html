@@ -9,7 +9,7 @@
   
 
   <div class="form">
-    <h3>Data Analysis and Control</h3>
+    <h3>Data Analysis</h3>
     <form [formGroup]="analyzeForm" >
       <input type="text" placeholder="Time to import data" formControlName="time"/>
       <input type="text" placeholder="Zona 1" formControlName="zona1"/>
@@ -27,22 +27,5 @@
 
   </div>
 
-
-
-  <div class="form">
-    <h3>Control</h3>
-    <div class="flex">
-      <button class="button" (click)="StartControl(analyzeForm.value)">Start</button>
-      <button class="button" (click)="StopControl()">Stop</button>
-      
-    </div>
-    <div *ngIf="chartControl" class="graph">
-      <canvas id="canvas2"> {{chartControl}} </canvas>
-    </div> 
-  </div>
-
-  
-
-  
 
 </div>
