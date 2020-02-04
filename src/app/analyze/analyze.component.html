@@ -25,6 +25,22 @@
       <canvas id="canvas"> {{chart}} </canvas>
     </div> 
 
+    
+    <h4 *ngIf="graphexist"> Data analyzed: {{rixfromserver.dataline}} </h4>
+    <h4 *ngIf="graphexist"> of wich is impossible to find SW: {{rixfromserver.missing}} </h4>
+
+    <h3> SW point distribution</h3>
+
+    <div *ngIf="hist" class="graph">
+      <canvas id="canvas_hist"> {{hist}} </canvas>
+    </div> 
+
+    <h3> SW Degree trend </h3>
+
+    <div *ngIf="cloud" class="graph">
+      <canvas id="canvas_cloud"> {{cloud}} </canvas>
+    </div> 
+
   </div>
 
 
