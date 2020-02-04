@@ -4,6 +4,8 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/throw';
 
+
+
 //import * as io from "socket.io-client";
 
 import { Observable, of } from 'rxjs';
@@ -28,30 +30,17 @@ export class SqlService {
   }
 
 
-  private static _handleError(err: HttpErrorResponse | any) {
+   _handleError(err: HttpErrorResponse ) {
     return Observable.throw(err.message || 'Error: Unable to complete request.');
   }
-/** 
-  listen(eventName:string){
-    return new Observable((subscriber)=> {
-      this.socket.on(eventName, (data)=>{
-        subscriber.next(data);
-      })
-    });
-  }
-  
 
-  emit(eventName: string,data:any){
-    this.socket.emit(eventName,data);
-  }
-**/
 
 
   TryConnection(jj: TryJSON){
     
     //var a: any =//.map((res) => {return res.json()});
     //console.log(a);
-    return this.http.post(this.SWUrl + '/tryconnection', jj, httpOptions).catch(SqlService._handleError)
+    return this.http.post(this.SWUrl + '/tryconnection', jj, httpOptions).catch(this._handleError)
                   
   }
 
@@ -59,14 +48,14 @@ export class SqlService {
     
     //var a: any =//.map((res) => {return res.json()});
     //console.log(a);
-    return this.http.post(this.SWUrl + '/getandanalyze', jj, httpOptions).catch(SqlService._handleError)
+    return this.http.post(this.SWUrl + '/getandanalyze', jj, httpOptions).catch(this._handleError)
                   
   }
   GetControlData(jj: AnalyzeJSON){
     
     //var a: any =//.map((res) => {return res.json()});
     //console.log(a);
-    return this.http.post(this.SWUrl + '/getcontroldata', jj, httpOptions).catch(SqlService._handleError)
+    return this.http.post(this.SWUrl + '/getcontroldata', jj, httpOptions).catch(this._handleError)
                   
   }
 
@@ -74,15 +63,18 @@ export class SqlService {
     
     //var a: any =//.map((res) => {return res.json()});
     //console.log(a);
-    return this.http.delete(this.SWUrl + '/clear',  httpOptions).catch(SqlService._handleError)
+    return this.http.delete(this.SWUrl + '/clear',  httpOptions).catch(this._handleError)
                   
   }
 
   Login(jj: LoginJSON){
-    return this.http.post(this.SWUrl + '/login', jj, httpOptions).catch(SqlService._handleError)
+    return this.http.post(this.SWUrl + '/login', jj, httpOptions).catch(this._handleError)
   }
 
   GetSettings(){
-    return this.http.get(this.SWUrl + '/getsettings',  httpOptions).catch(SqlService._handleError)
+    return this.http.get(this.SWUrl + '/getsettings',  httpOptions).catch(this._handleError)
   }
+
+
+  
 }

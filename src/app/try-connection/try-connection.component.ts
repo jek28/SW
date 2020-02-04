@@ -55,6 +55,11 @@ export class TryConnectionComponent implements OnInit {
 
 
   }
+  ErrorAlert(error){
+      const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = error ;
+    }
+
 
   onSubmit(ConnectionData) {
     
@@ -65,7 +70,7 @@ export class TryConnectionComponent implements OnInit {
     this.dataforsql.SQLtable=ConnectionData.table  
     console.warn('Dati mandati: ',this.dataforsql );
 
-    this.sqlservice.TryConnection(this.dataforsql).subscribe(res=> {  this.rixfromsql=res;this.update();}), error => alert(error);
+    this.sqlservice.TryConnection(this.dataforsql).subscribe(res=> {  this.rixfromsql=res;this.update();}, error => this.ErrorAlert(error))
     
     }
 

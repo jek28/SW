@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   rixfromsql: any ;
   loginForm;
   dataforlogin= new LoginJSON();
+  errorMsg;
   
 
   constructor(private router: Router,
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
     this.dataforlogin.pw=ConnectionData.pw 
     console.warn('Dati mandati: ',this.dataforlogin );
 
-    this.sqlservice.Login(this.dataforlogin).subscribe(res=> {  this.rixfromsql=res;this.update();}), error => alert(error);
+    this.sqlservice.Login(this.dataforlogin).subscribe(res=> {  this.rixfromsql=res;this.update();}, error => this.ErrorAlert(error) )
   }
 
   update(){
@@ -63,6 +64,10 @@ export class LoginComponent implements OnInit {
 
           
         }
+    }
+    ErrorAlert(error){
+      const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = error + " Server non connesso.";
     }
     
 

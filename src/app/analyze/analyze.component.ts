@@ -70,11 +70,16 @@ export class AnalyzeComponent implements OnInit {
       
   }
 
+  ErrorAlert(error){
+      const modalRef = this.modalService.open(MymodalComponent);
+          modalRef.componentInstance.my_modal_content = error ;
+    }
+
 
   resetClick()
   {
     this.graphexist=false;
-    console.log("function called");
+    console.log("reset grafico ");
     this.chart.destroy();
     
 
@@ -91,18 +96,12 @@ export class AnalyzeComponent implements OnInit {
     console.warn('Dati mandati: ',this.dataforsw );
 
 
-    this.sqlservice.GetAndAnalyze(this.dataforsw).subscribe(res=> {  this.rixfromserver=res;this.update();}), error => alert(error);
-    
-
-
-    
-
-
+    this.sqlservice.GetAndAnalyze(this.dataforsw).subscribe(res=> {  this.rixfromserver=res;this.update();}, error => this.ErrorAlert(error))
     }
 
   update(){
         //console.warn('Risposta: ', this.rixfromsql);
-        console.log('Status: ',this.rixfromserver.status);
+        console.log('Status analisi : ',this.rixfromserver.status);
         if (this.rixfromserver.status!=200)
         {
            const modalRef = this.modalService.open(MymodalComponent);
@@ -237,48 +236,62 @@ export class AnalyzeComponent implements OnInit {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+    ControlPresence=false;
 
     StartControl(ConnectionData) {
       console.log("controllo partito")
 
-    this.dataforsw.time=ConnectionData.time;  
-    this.dataforsw.zona1=ConnectionData.zona1 ; 
-    this.dataforsw.zona2=ConnectionData.zona2 ;
-    this.dataforsw.smooth=ConnectionData.ss  ;
-    this.dataforsw.polydeg=ConnectionData.dd  ;
+      this.dataforsw.time=ConnectionData.time;  
+      this.dataforsw.zona1=ConnectionData.zona1 ; 
+      this.dataforsw.zona2=ConnectionData.zona2 ;
+      this.dataforsw.smooth=ConnectionData.ss  ;
+      this.dataforsw.polydeg=ConnectionData.dd  ;
 
-    var deltatm=parseFloat(ConnectionData.time);
+      var deltatm=parseFloat(ConnectionData.time);
 
-    console.warn('Dati mandati: ',this.dataforsw );
-     
-     if (deltatm>5 && deltatm<100) 
-     {
-      this.mytimer=timer(0, deltatm*1000).subscribe(()=>this.sqlservice.GetControlData(this.dataforsw).first().subscribe(res=> {  this.rixcontrol=res;this.updateControl();}));
+      console.warn('Dati mandati: ',this.dataforsw );
+      if (this.ControlPresence==false){
+          if (deltatm>5 && deltatm<100) 
+          {
+            this.mytimer=timer(0, deltatm*1000).subscribe(()=>this.sqlservice.GetControlData(this.dataforsw).subscribe(res=> {  this.rixcontrol=res;this.updateControl();}), err=> this.ErrorAlert(err));
 
-      const modalRef = this.modalService.open(MymodalComponent);
-      modalRef.componentInstance.my_modal_content = 'Controllore partito';
-     }
-     else{
-       const modalRef = this.modalService.open(MymodalComponent);
-      modalRef.componentInstance.my_modal_content = 'tempo immesso non valido';
-     }
+            const modalRef = this.modalService.open(MymodalComponent);
+            modalRef.componentInstance.my_modal_content = 'Controllore partito';
+            this.ControlPresence=true
+          }
+          else{
+            const modalRef = this.modalService.open(MymodalComponent);
+            modalRef.componentInstance.my_modal_content = 'tempo immesso non valido';
+          }
+        }
+      else{
+        const modalRef = this.modalService.open(MymodalComponent);
+        modalRef.componentInstance.my_modal_content = 'stoppare prima il controllore';
+      }
 
 
     }
-    StopControl(){
-      console.log("control stop")
-      this.mytimer.unsubscribe();
-      this.mytimer=null;
 
+    StopControl(){
+      if (this.ControlPresence==true){
+        console.log("control stop")
+        this.mytimer.unsubscribe();
+        this.mytimer=null;
+
+        const modalRef = this.modalService.open(MymodalComponent);
+        modalRef.componentInstance.my_modal_content = 'Controllore fermato';
+        this.ControlPresence=false
+    }
+    else {
       const modalRef = this.modalService.open(MymodalComponent);
-      modalRef.componentInstance.my_modal_content = 'Controllore fermato';
+      modalRef.componentInstance.my_modal_content = 'Nessun controllore attivo';
+    }
       
     }
 
     updateControl(){
         
-        console.log('Status: ',this.rixcontrol.status);
+        console.log('Status control: ',this.rixcontrol.status);
         if (this.rixcontrol.status!=200)
         {
            const modalRef = this.modalService.open(MymodalComponent);
